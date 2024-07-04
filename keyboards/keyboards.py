@@ -1,15 +1,22 @@
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-main = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='Каталог', callback_data='catalog')],
-    [InlineKeyboardButton(text='Корзина', callback_data='basket'),
-     InlineKeyboardButton(text='Контакты', callback_data='contacts')]
-])
 
-settings = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='YouTube', url='https://youtube.com')],
-])
+main = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text='Каталог', callback_data='catalog')],
+        [
+            InlineKeyboardButton(text='Корзина', callback_data='basket'),
+            InlineKeyboardButton(text='Контакты', callback_data='contacts'),
+        ],
+    ]
+)
+
+settings = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text='YouTube', url='https://youtube.com')],
+    ]
+)
 
 cars = ['lada', 'toyota', 'bmw', 'ford']
 

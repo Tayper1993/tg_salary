@@ -9,7 +9,8 @@ from dotenv import load_dotenv
 
 from handlers.handlers import router
 
-load_dotenv(dotenv_path='.environment')
+
+load_dotenv(dotenv_path='.environment.example')
 
 token = os.getenv('TOKEN')
 bot = Bot(token=token, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
