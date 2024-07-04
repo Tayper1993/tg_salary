@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  db:
+    container_name: test_for_service_landing
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: scot
+      POSTGRES_PASSWORD: tiger
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
