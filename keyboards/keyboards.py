@@ -1,13 +1,10 @@
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton
 
-main = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [InlineKeyboardButton(text='Каталог', callback_data='catalog')],
-        [
-            InlineKeyboardButton(text='Корзина', callback_data='basket'),
-            InlineKeyboardButton(text='Контакты', callback_data='contacts'),
-        ],
-    ]
+kb_main = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text='Подсчитать зарплату и аванс')],
+    ],
+    resize_keyboard=True
 )
 
 kb_salary = {

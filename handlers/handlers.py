@@ -1,10 +1,10 @@
-from aiogram import Router
-from aiogram.filters import Command
+from aiogram import Router, F
+from aiogram.filters import Command, CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import Message, CallbackQuery
 
-from keyboards.keyboards import kb_salary
+from keyboards.keyboards import kb_salary, kb_main
 
 router = Router()
 
@@ -28,13 +28,18 @@ def salary(salary: int, month: str):
         'Ноябрь': {'days_to_avans': 10, 'work_day': 21},
     }
 
-    month = data.get(month.capitalize())
+    month = data.get(month)
     wd = month.get('work_day')
     dta = month.get('days_to_avans')
 
     avans = (int(salary) / wd) * dta
     zepeshka = int(salary) - avans
     return round(avans), round(zepeshka)
+
+
+@router.message(CommandStart())
+async def cmd_start(message: Message):
+    await message.reply(f'Привет, {message.from_user.full_name}', reply_markup=kb_main)
 
 
 # Обработчик команды /count_salary
@@ -44,8 +49,8 @@ class Reg(StatesGroup):
     month = State()
 
 
-@router.message(Command('count_salary'))
-async def reg_one(message: Message, state: FSMContext):
+@router.message(F.text == 'Подсчитать зарплату и аванс')
+async def get_confirm(message: Message, state: FSMContext):
     await state.set_state(Reg.confirm)
     await message.reply('Считаем зарплату? 🤔', reply_markup=kb_salary['confirm'])
 
