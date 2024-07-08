@@ -72,9 +72,10 @@ async def process_salary(callback: CallbackQuery, state: FSMContext):
 
 
 @router.callback_query(Reg.month)
-async def two_three(callback: CallbackQuery, state: FSMContext):
+async def result_salary(callback: CallbackQuery, state: FSMContext):
+    await callback.answer('')
     await state.update_data(month=callback.data)
     data = await state.get_data()
     sal = salary(data.get('salary'), data.get('month'))
     await callback.message.answer(f'Месяц: {data["month"]}\nОбщая зарплата: {data["salary"]}\nАванс и Зарплата:{sal}')
-    # await state.clear()
+    await state.clear()
