@@ -42,29 +42,15 @@ async def cmd_start(message: Message):
     await message.reply(f'Привет, {message.from_user.full_name}', reply_markup=kb_main)
 
 
-# Обработчик команды /count_salary
 class Reg(StatesGroup):
-    confirm = State()
     salary = State()
     month = State()
 
 
 @router.message(F.text == 'Подсчитать зарплату и аванс')
-async def get_confirm(message: Message, state: FSMContext):
-    await state.set_state(Reg.confirm)
-    await message.reply('Считаем зарплату? 🤔', reply_markup=kb_salary['confirm'])
-
-
-# Обработчик ответа Да/Нет на подтверждение
-@router.callback_query(lambda c: c.data in ('yes', 'no'))
-async def process_confirm(callback: CallbackQuery, state: FSMContext):
-    await callback.answer('')
-    if callback.data == 'yes':
-        await state.set_state(Reg.salary)
-        await callback.message.answer('Какая у Вас месячная зарплата?', reply_markup=kb_salary['salary'])
-    else:
-        await callback.message.answer('Хорошо, может быть в другой раз! 👋')
-        await state.clear()
+async def process_confirm(message: Message, state: FSMContext):
+    await state.set_state(Reg.salary)
+    await message.answer('Какая у Вас месячная зарплата?', reply_markup=kb_salary['salary'])
 
 
 # Обработчик выбора зарплаты

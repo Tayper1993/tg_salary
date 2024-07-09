@@ -7,13 +7,14 @@ kb_main = ReplyKeyboardMarkup(
     resize_keyboard=True
 )
 
+kb_clear = ReplyKeyboardMarkup(
+    keyboard=[
+        [KeyboardButton(text='Очистка')],
+    ],
+    resize_keyboard=True
+)
+
 kb_salary = {
-    'confirm': InlineKeyboardMarkup(
-        inline_keyboard=[
-            [InlineKeyboardButton(text='Да', callback_data='yes'),
-             InlineKeyboardButton(text='Нет', callback_data='no')],
-        ]
-    ),
     'salary': InlineKeyboardMarkup(
         inline_keyboard=[
             [InlineKeyboardButton(text='60 000', callback_data='60000')],
