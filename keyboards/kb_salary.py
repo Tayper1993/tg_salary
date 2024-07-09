@@ -30,6 +30,7 @@ kb_salary = {
                 InlineKeyboardButton(text='Ноябрь', callback_data='Ноябрь'),
                 InlineKeyboardButton(text='Декабрь', callback_data='Декабрь'),
             ],
+            [InlineKeyboardButton(text='Текущий месяц', callback_data='current_month')],
         ]
     ),
 }

@@ -1,3 +1,6 @@
+from datetime import datetime
+
+
 def get_salary(salary: int, month: str):
     data = {
         'Декабрь': {'days_to_avans': 10, 'work_day': 20},
@@ -24,3 +27,25 @@ def get_salary(salary: int, month: str):
         'avans': avans,
         'zepeshka': zepeshka,
     }
+
+
+def get_current_month(month: int):
+    """Возвращает текущий месяц на русском языке."""
+    if month > 12:
+        return {'result': 'Неверно указан месяц'}
+    month_ru = {
+        1: 'Январь',
+        2: 'Февраль',
+        3: 'Март',
+        4: 'Апрель',
+        5: 'Май',
+        6: 'Июнь',
+        7: 'Июль',
+        8: 'Август',
+        9: 'Сентябрь',
+        10: 'Октябрь',
+        11: 'Ноябрь',
+        12: 'Декабрь',
+    }
+    current_month = datetime.now().month
+    return month_ru.get(current_month, {})

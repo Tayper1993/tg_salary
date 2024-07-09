@@ -1,10 +1,12 @@
+from datetime import datetime
+
 from aiogram import F, Router
 from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message
 
-from handlers.help_utils import get_salary
+from handlers.help_utils import get_current_month, get_salary
 from keyboards.kb_main import kb_main
 from keyboards.kb_salary import kb_salary
 
@@ -47,8 +49,16 @@ async def process_salary(callback: CallbackQuery, state: FSMContext):
 async def result_salary(callback: CallbackQuery, state: FSMContext):
     await callback.answer('')
     await state.update_data(month=callback.data)
+
     data = await state.get_data()
-    salary = get_salary(data.get('salary'), data.get('month'))
+    data_salary = data.get('salary')
+    data_month = data.get('month')
+
+    if data_month == 'current_month':
+        current_month = datetime.now().month
+        data_month = get_current_month(current_month)
+
+    salary = get_salary(data_salary, data_month)
     await callback.message.answer(
         f'Месяц: {data["month"]}\nОбщая зарплата: {data["salary"]}\nАванс: {salary.get('avans')}\nЗарплата: {salary.get('zepeshka')}'
     )
