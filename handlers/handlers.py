@@ -3,8 +3,8 @@ from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.types import CallbackQuery, Message
-from utils import get_salary
 
+from handlers.help_utils import get_salary
 from keyboards.kb_main import kb_main
 from keyboards.kb_salary import kb_salary
 
@@ -50,5 +50,5 @@ async def result_salary(callback: CallbackQuery, state: FSMContext):
     data = await state.get_data()
     salary = get_salary(data.get('salary'), data.get('month'))
     await callback.message.answer(
-        f'Месяц: {data["month"]}\nОбщая зарплата: {data["salary"]}\nАванс и Зарплата:{salary}'
+        f'Месяц: {data["month"]}\nОбщая зарплата: {data["salary"]}\nАванс: {salary.get('avans')}\nЗарплата: {salary.get('zepeshka')}'
     )

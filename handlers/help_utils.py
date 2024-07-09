@@ -18,6 +18,9 @@ def get_salary(salary: int, month: str):
     wd = month.get('work_day')
     dta = month.get('days_to_avans')
 
-    avans = (int(salary) / wd) * dta
-    zepeshka = int(salary) - avans
-    return round(avans), round(zepeshka)
+    avans = round((int(salary) / wd) * dta)
+    zepeshka = round(int(salary) - avans)
+    return {
+        'avans': avans,
+        'zepeshka': zepeshka,
+    }
