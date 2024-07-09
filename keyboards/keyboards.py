@@ -3,16 +3,11 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeybo
 kb_main = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text='Подсчитать зарплату и аванс')],
-    ],
-    resize_keyboard=True
-)
-
-kb_clear = ReplyKeyboardMarkup(
-    keyboard=[
         [KeyboardButton(text='Очистка')],
     ],
     resize_keyboard=True
 )
+
 
 kb_salary = {
     'salary': InlineKeyboardMarkup(

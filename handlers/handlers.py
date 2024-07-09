@@ -42,6 +42,12 @@ async def cmd_start(message: Message):
     await message.reply(f'Привет, {message.from_user.full_name}', reply_markup=kb_main)
 
 
+@router.message(F.text == 'Очистка')
+async def clear_state(message: Message, state: FSMContext):
+    await state.clear()
+    await message.reply("История очищена!", reply_markup=kb_main)
+
+
 class Reg(StatesGroup):
     salary = State()
     month = State()
@@ -69,4 +75,3 @@ async def result_salary(callback: CallbackQuery, state: FSMContext):
     data = await state.get_data()
     sal = salary(data.get('salary'), data.get('month'))
     await callback.message.answer(f'Месяц: {data["month"]}\nОбщая зарплата: {data["salary"]}\nАванс и Зарплата:{sal}')
-    await state.clear()
