@@ -1,18 +1,19 @@
-FROM python:3.12-slim
+FROM python:alpine
 LABEL version="0.1.0" maintainer="Polyakov_KS"
-ENV PYTHONUNBUFFERED=0
+
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
 ENV LANG ru_RU.UTF-8
 
-RUN apt-get update && apt-get -y install libpq-dev gcc git && rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
+WORKDIR /telegram_bot
 
-RUN /usr/local/bin/python -m pip install --upgrade pip
+COPY ./requirements.txt ./
 
-WORKDIR /usr/src/app
-COPY ./requirements.txt .
+RUN pip install --upgrade pip
+RUN pip install --no-cache-dir -r ./requirements.txt
 
-RUN pip install --no-cache-dir -r requirements.txt
+COPY ./ ./
 
-WORKDIR /code
-COPY . /code
+RUN chmod -R 777 ./
 
-EXPOSE 8000
+CMD ["python", "./main.py"]

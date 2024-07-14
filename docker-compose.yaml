@@ -1,14 +1,11 @@
-version: '3'
+version: "3.9"
 
 services:
-
-  db:
-    container_name: test_for_service_landing
-    image: postgres
+  telegram-bot:
+    container_name: telegram-bot
+    working_dir: /telegram_bot
     restart: always
-    environment:
-      POSTGRES_USER: scot
-      POSTGRES_PASSWORD: tiger
-      POSTGRES_DB: mydatabase
-    ports:
-      - "5432:5432"
+    build:
+        context: .
+        dockerfile: Dockerfile
+    command: sh -c "python main.py"
